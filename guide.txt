@@ -17,10 +17,10 @@ Students should focus on...
         b. Logging it.
     4) Params, body, etc.
 
-RESTAURANT ANALOGY (or any other analogy)
+RESTAURANT ANALOGY (or any other analogy): OPTIONAL
 A full stack application is like a restaurant. The front end is the diner, Axios is the waiter, the kitchen is the back end. The diner is blind to everything the kitchen is doing to prepare their order. The diner only needs to request something from the kitchen. The waiter will be their primary communication method to the kitchen, because the diner won't visit the kitchen themselves to place the order. Once the kitchen gets the order, they will process your order and send your dish back via your waiter.
 
-1. SERVER SETUP
+SERVER SETUP
 
 Use the boilerplate code and write it out step by step for the review (avoid copy pasting it, this might be their last time writing it out step by step).
 
@@ -37,7 +37,7 @@ Use the boilerplate code and write it out step by step for the review (avoid cop
 
 Start the server, and make sure students know that checking their VS Code terminals is a good first step for debugging.
 
-2. WRITE A GET REQUEST
+WRITE A GET REQUEST
 
 Start with a basic GET request that sends back a simple string.
     1) On the front end, make a basic button that sends a request, using the "3 Basic Steps for Successful Interactive JS".
@@ -52,8 +52,8 @@ Don't do any CSS or try to make anything pretty. This is not an assessment to te
 FRONT END
     const testButton = document.querySelector("#test-button");
 
-    const testFunc() {
-        axios.get("http://localhost:3434/test")
+    const getFunc() {
+        axios.get("http://localhost:3434/get")
             .then((res) => {
                 console.log(res.data) // Feel free to log res as well, to show them how the response object is structured.
             })
@@ -62,47 +62,47 @@ FRONT END
     testButton.addEventListener("click", testFunc);
 
 BACK END
-    app.get("/test", (req, res) => {
+    app.get("/get", (req, res) => {
         res.status(200).send("Request handled");
     })
 
-3. HOW TO SEND A BODY
+HOW TO SEND A BODY
 
 Body is just an object you send to the back end.
 
 FRONT END
-    const bodyFunc() {
+    const postFunc() {
         let bodyObj = {
             name: "Jeddy",
             hobbies: "Coding"
         }
 
-        axios.post("/add", bodyObj)
+        axios.post("http://localhost:3434/post", bodyObj)
             .then((res) => {
                 console.log(res.data);
             })
     }
 
 BACK END
-    app.post("/add", (req, res) => {
+    app.post("/post", (req, res) => {
         console.log(req.body);
         const {name, hobbies} = req.body;
 
         res.status(200).send(`The body you sent contains ${name} and ${hobbies}`);
     })
 
-4. HOW TO SEND A PARAM
+HOW TO SEND A PARAM
 
 Param is a way to specifically identify/request something from the back end.
 
 FRONT END
     const inputElement = document.querySelector("#input-element");
-    const paramButton = document.querySelector("#param-buton");
+    const paramButton = document.querySelector("#param-button");
 
     const paramFunc() {
         const id = inputElement.value;
 
-        axios.get("/get/${id}")
+        axios.get(`http://localhost:3434/get/${id}`)
             .then((res) => {
                 console.log(res.data);
             })
